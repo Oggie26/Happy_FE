@@ -1,10 +1,16 @@
 import React from 'react';
-import { Form, Input, Button, Card } from 'antd';
+import { Form, Input, Button, Card, message } from 'antd';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../auth/AuthContext';
 
 const LoginPage = () => {
-  const onFinish = (values) => {
-    // TODO: Implement login logic
-    console.log('Login:', values);
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
+  const onFinish = async (values) => {
+    await login(values);
+    message.success('Logged in successfully');
+    navigate('/dashboard');
   };
 
   return (
